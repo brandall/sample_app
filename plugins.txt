@@ -1,0 +1,44 @@
+Unknown command: 
+Usage: plugin [OPTIONS] command
+Rails plugin manager.
+
+GENERAL OPTIONS
+  -r, --root=DIR                   Set an explicit rails app directory.
+                                   Default: C:/Users/brandall/projects/sandbox/rails/sample_app
+  -s, --source=URL1,URL2           Use the specified plugin repositories instead of the defaults.
+  -v, --verbose                    Turn on verbose output.
+  -h, --help                       Show this help message.
+
+COMMANDS
+  discover   Discover plugin repositories.
+  list       List available plugins.
+  install    Install plugin(s) from known repositories or URLs.
+  update     Update installed plugins.
+  remove     Uninstall plugins.
+  source     Add a plugin source repository.
+  unsource   Remove a plugin repository.
+  sources    List currently configured plugin repositories.
+
+EXAMPLES
+  Install a plugin:
+    plugin install continuous_builder
+  Install a plugin from a subversion URL:
+    plugin install http://dev.rubyonrails.com/svn/rails/plugins/continuous_builder
+  Install a plugin from a git URL:
+    plugin install git://github.com/SomeGuy/my_awesome_plugin.git
+  Install a plugin and add a svn:externals entry to vendor/plugins
+    plugin install -x continuous_builder
+  List all available plugins:
+    plugin list
+  List plugins in the specified repository:
+    plugin list --source=http://dev.rubyonrails.com/svn/rails/plugins/
+  Discover and prompt to add new repositories:
+    plugin discover
+  Discover new repositories but just list them, don't add anything:
+    plugin discover -l
+  Add a new repository to the source list:
+    plugin source http://dev.rubyonrails.com/svn/rails/plugins/
+  Remove a repository from the source list:
+    plugin unsource http://dev.rubyonrails.com/svn/rails/plugins/
+  Show currently configured repositories:
+    plugin sources
