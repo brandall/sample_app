@@ -3,6 +3,19 @@ require 'spec_helper'
 describe UsersController do
   integrate_views
   
+  describe "GET 'new'" do
+
+    it "should be successful" do
+      get :new
+      response.should be_success
+    end
+
+    it "should have the right title" do
+      get :new
+      response.should have_tag("title", /Sign up/)
+    end
+  end
+  
   describe "GET 'show'" do
 
     before(:each) do
@@ -34,13 +47,38 @@ describe UsersController do
 
   describe "GET 'new'" do
     it "should be successful" do
-      get 'new'
+      get :new
       response.should be_success
     end
     
     it "should have the right title" do
-      get 'new'
+      get :new
       response.should have_tag("title", /Sign up/)
     end
   end
+  
+  describe "POST 'create'" do
+
+    describe "failure" do
+
+      before(:each) do
+        @attr = { :name => "", :email => "", :password => "",
+                  :password_confirmation => "" }
+        @user = Factory.build(:user, @attr)
+        User.stub!(:new).and_return(@user)
+        @user.should_receive(:save).and_return(false)
+      end
+
+      it "should have the right title" do
+        post :create, :user => @attr
+        response.should have_tag("title", /sign up/i)
+      end
+
+      it "should render the 'new' page" do
+        post :create, :user => @attr
+        response.should render_template('new')
+      end
+    end
+  end
+  
 end
